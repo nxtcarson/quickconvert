@@ -13,7 +13,7 @@ PrivilegesRequired=admin
 
 [Files]
 ; Include your application files
-Source: "bin\Release\net6.0-windows\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
+Source: "bin\Release\net6.0-windows\win-x64\publish\*"; DestDir: "{app}"; Flags: ignoreversion recursesubdirs createallsubdirs
 
 [Icons]
 Name: "{group}\QuickConvert"; Filename: "{app}\QuickConvert.App.exe"
