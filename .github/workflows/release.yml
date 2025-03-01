@@ -30,6 +30,10 @@ jobs:
     - name: Create Installer Directory
       run: mkdir -p Installer
       
+    - name: Update Inno Setup Script Path
+      run: |
+        (Get-Content QuickConvertSetup.iss) -replace 'Source: "bin\\Release\\net6.0-windows\\publish\\', 'Source: "bin\\Release\\net6.0-windows\\win-x64\\publish\\' | Set-Content QuickConvertSetup.iss
+      
     - name: Build Installer
       run: |
         & "C:\Program Files (x86)\Inno Setup 6\ISCC.exe" "QuickConvertSetup.iss"

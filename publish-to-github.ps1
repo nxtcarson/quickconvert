@@ -32,7 +32,7 @@ Write-Host ""
 
 # Create a tag for release
 Write-Host "Creating release tag..." -ForegroundColor Yellow
-git tag -a v1.0.0 -m "QuickConvert 1.0.0"
+git tag -a v1.0.1 -m "QuickConvert 1.0.0"
 git push origin v1.0.0
 Write-Host ""
 
