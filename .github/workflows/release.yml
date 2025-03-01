@@ -30,9 +30,28 @@ jobs:
     - name: Create Installer Directory
       run: mkdir -p Installer
       
+    - name: Debug Directory Structure
+      run: |
+        Get-ChildItem -Path . -Recurse -Depth 3
+        Get-ChildItem -Path bin -Recurse -Depth 3 
+      
     - name: Update Inno Setup Script Path
       run: |
-        (Get-Content QuickConvertSetup.iss) -replace 'Source: "bin\\Release\\net6.0-windows\\publish\\', 'Source: "bin\\Release\\net6.0-windows\\win-x64\\publish\\' | Set-Content QuickConvertSetup.iss
+        Get-Content QuickConvertSetup.iss
+        $absolutePath = "${{ github.workspace }}".Replace('\', '\\')
+        (Get-Content QuickConvertSetup.iss) -replace 'Source: ".*?publish\\', "Source: `"$absolutePath\\bin\\Release\\net6.0-windows\\win-x64\\publish\\" | Set-Content QuickConvertSetup.iss
+        Get-Content QuickConvertSetup.iss
+        
+    - name: Verify Files Exist
+      run: |
+        $publishPath = "${{ github.workspace }}\bin\Release\net6.0-windows\win-x64\publish"
+        Write-Host "Checking if publish directory exists: $publishPath"
+        if (Test-Path $publishPath) {
+            Write-Host "Directory exists! Listing contents:"
+            Get-ChildItem -Path $publishPath
+        } else {
+            Write-Host "Directory does not exist!"
+        }
       
     - name: Build Installer
       run: |
